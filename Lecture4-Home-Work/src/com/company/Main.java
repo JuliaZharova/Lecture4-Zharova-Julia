@@ -6,7 +6,7 @@ public class Main {
 
     public static void main(String[] args) {
         String data;
-        String filter;
+        String filter = null;
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Please enter at least three words separated by commas.");
@@ -14,7 +14,7 @@ public class Main {
 
         String[] words = data.split(",");
 
-        while (true) {
+        do {
             System.out.println("Please choose a filter:"
                     + "\n1 - maximum length"
                     + "\n2 - start with"
@@ -23,21 +23,21 @@ public class Main {
                     + "\n0 - exit");
             filter = scanner.nextLine();
             String searchParam;
-            System.out.print("Please specify ");
 
             if (filter.equals("1")) {
-                System.out.println("maximum length");
+                System.out.println("Please specify maximum length");
                 searchParam = scanner.nextLine();
             } else if (filter.equals("2")) {
-                System.out.println("the first letter");
+                System.out.println("Please specify the first letter");
                 searchParam = scanner.nextLine();
             } else if (filter.equals("3")) {
-                System.out.println("the last letter");
+                System.out.println("Please specify the last letter");
                 searchParam = scanner.nextLine();
             } else if (filter.equals("4")) {
-                System.out.println("part of the word");
+                System.out.println("Please specify part of the word");
                 searchParam = scanner.nextLine();
             } else if (filter.equals("0")) {
+                System.out.println("Exit");
                 break;
             } else {
                 System.out.println("Please use only supported filters.");
@@ -62,6 +62,7 @@ public class Main {
 
             System.out.print("\n");
         }
+        while (!filter.equals("0"));
     }
 }
 
