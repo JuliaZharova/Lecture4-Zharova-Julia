@@ -1,5 +1,7 @@
 package com.company;
 
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Scanner;
 
 public class Main {
@@ -25,8 +27,14 @@ public class Main {
             String searchParam;
 
             if (filter.equals("1")) {
-                System.out.println("Please specify maximum length");
-                searchParam = scanner.nextLine();
+                Integer maxLength = Arrays
+                        .stream(words)
+                        .map(String::trim)
+                        .map(String::length)
+                        .max(Integer::compareTo)
+                        .get();
+                System.out.println("Result:\n" + maxLength);
+                continue;
             } else if (filter.equals("2")) {
                 System.out.println("Please specify the first letter");
                 searchParam = scanner.nextLine();
@@ -49,9 +57,7 @@ public class Main {
             for (String word : words) {
                 word = word.trim();
 
-                if (filter.equals("1") && word.length() <= Integer.parseInt(searchParam)) {
-                    System.out.println(word);
-                } else if (filter.equals("2") && word.startsWith(searchParam)) {
+                if (filter.equals("2") && word.startsWith(searchParam)) {
                     System.out.println(word);
                 } else if (filter.equals("3") && word.endsWith(searchParam)) {
                     System.out.println(word);
