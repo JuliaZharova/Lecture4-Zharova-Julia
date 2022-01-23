@@ -1,7 +1,5 @@
 package com.company;
 
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.Scanner;
 
 public class Main {
@@ -15,7 +13,8 @@ public class Main {
         data = scanner.nextLine();
 
         String[] words = data.split(",");
-
+        Integer searchPar = 0;
+        String searchParam = null;
         do {
             System.out.println("Please choose a filter:"
                     + "\n1 - maximum length"
@@ -24,17 +23,15 @@ public class Main {
                     + "\n4 - contains"
                     + "\n0 - exit");
             filter = scanner.nextLine();
-            String searchParam;
 
             if (filter.equals("1")) {
-                Integer maxLength = Arrays
-                        .stream(words)
-                        .map(String::trim)
-                        .map(String::length)
-                        .max(Integer::compareTo)
-                        .get();
-                System.out.println("Result:\n" + maxLength);
-                continue;
+                System.out.println("Please specify the maximum length");
+                while (!scanner.hasNextInt())
+                {
+                    System.out.println("Not number. Please enter valid number;");
+                    scanner.nextLine();
+                }
+                searchParam = scanner.nextLine();
             } else if (filter.equals("2")) {
                 System.out.println("Please specify the first letter");
                 searchParam = scanner.nextLine();
@@ -46,24 +43,26 @@ public class Main {
                 searchParam = scanner.nextLine();
             } else if (filter.equals("0")) {
                 System.out.println("Exit");
-                break;
             } else {
                 System.out.println("Please use only supported filters.");
                 continue;
             }
 
-            System.out.println("Results: ");
-
             for (String word : words) {
                 word = word.trim();
 
-                if (filter.equals("2") && word.startsWith(searchParam)) {
-                    System.out.println(word);
+                if (filter.equals("1") && word.length() <= Integer.parseInt(searchParam)) {
+                    System.out.println("Result: " + word);
+                } else if (filter.equals("2") && word.startsWith(searchParam)) {
+                    System.out.println("Result: " + word);
                 } else if (filter.equals("3") && word.endsWith(searchParam)) {
-                    System.out.println(word);
+                    System.out.println("Result: " + word);
                 } else if (filter.equals("4") && word.contains(searchParam)) {
-                    System.out.println(word);
+                    System.out.println("Result: " + word);
+                } else if (filter.equals("0")){
+                    break;   
                 }
+
             }
 
             System.out.print("\n");
